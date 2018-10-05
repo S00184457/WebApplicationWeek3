@@ -204,6 +204,10 @@
     <Compile Include="Migrations\201810050942120_Initial Db Setup.Designer.cs">
       <DependentUpon>201810050942120_Initial Db Setup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810051027443_Application User fields added.cs" />
+    <Compile Include="Migrations\201810051027443_Application User fields added.Designer.cs">
+      <DependentUpon>201810051027443_Application User fields added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -290,6 +294,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810050942120_Initial Db Setup.resx">
       <DependentUpon>201810050942120_Initial Db Setup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810051027443_Application User fields added.resx">
+      <DependentUpon>201810051027443_Application User fields added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
