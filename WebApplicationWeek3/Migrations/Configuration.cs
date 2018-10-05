@@ -66,11 +66,43 @@ namespace WebApplicationWeek3.Migrations
                 });
             context.SaveChanges();
 
+            context.Clubs.AddOrUpdate(c => c.ClubId,
+                new Club
+                {
+                    ClubId = 1,
+                    ClubName = "Trad Music Club",
+                    CreationDate = new DateTime(2008, 08, 08),
+                    adminID = 1,
+                }
+                );
+
+            context.Clubs.AddOrUpdate(c => c.ClubId,
+                new Club
+                {
+                    ClubId = 2,
+                    ClubName = "Badminton Club",
+                    CreationDate = new DateTime(2010, 10, 10),
+                    adminID = 1,
+                    //clubMembers = new ICollection<Member>
+                }
+                );
+
+            context.Clubs.AddOrUpdate(c => c.ClubId,
+                new Club
+                {
+                    ClubId = 3,
+                    ClubName = "International Club",
+                    CreationDate = new DateTime(2012, 12, 12),
+                    adminID = 1,
+                }
+                );
+
             context.Members.AddOrUpdate(m => m.MemberID,
                 new Member
                 {
                     MemberID = 1,
                     StudentID="S00181111",
+                    approved = true,
                 }
                 );
 
@@ -79,6 +111,39 @@ namespace WebApplicationWeek3.Migrations
                 {
                     MemberID = 2,
                     StudentID = "S00182222",
+                    approved = true,
+                }
+                );
+
+            context.ClubEvents.AddOrUpdate(e => e.EventID,
+                new ClubEvent
+                {
+                    EventID = 1,
+                    Location = "IT",
+                }
+                );
+
+            context.ClubEvents.AddOrUpdate(e => e.EventID,
+                new ClubEvent
+                {
+                    EventID = 2,
+                    Location = "IT",
+                }
+                );
+
+            context.ClubEvents.AddOrUpdate(e => e.EventID,
+                new ClubEvent
+                {
+                    EventID = 3,
+                    Location = "Arena",
+                }
+                );
+
+            context.ClubEvents.AddOrUpdate(e => e.EventID,
+                new ClubEvent
+                {
+                    EventID = 4,
+                    Location = "Arena",
                 }
                 );
 
