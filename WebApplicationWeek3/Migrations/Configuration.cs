@@ -1,5 +1,6 @@
 namespace WebApplicationWeek3.Migrations
 {
+    using ClubDomain.Classes.ClubModels;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -64,6 +65,22 @@ namespace WebApplicationWeek3.Migrations
                     PasswordHash = ps.HashPassword("radP2016$1")
                 });
             context.SaveChanges();
+
+            context.Members.AddOrUpdate(m => m.MemberID,
+                new Member
+                {
+                    MemberID = 1,
+                    StudentID="S00181111",
+                }
+                );
+
+            context.Members.AddOrUpdate(m => m.MemberID,
+                new Member
+                {
+                    MemberID = 2,
+                    StudentID = "S00182222",
+                }
+                );
 
             ApplicationUser admin = manager.FindByEmail("powell.paul@itsligo.ie");
             if (admin != null)

@@ -214,12 +214,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Club.cs" />
-    <Compile Include="Models\ClubEvent.cs" />
-    <Compile Include="Models\EventAttendnace.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Members.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -309,6 +305,12 @@
     <EmbeddedResource Include="Migrations\201810051048552_Club Model added.resx">
       <DependentUpon>201810051048552_Club Model added.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClubDomain.Classes\ClubDomain.Classes.csproj">
+      <Project>{6DDA97A6-BFCA-4D2B-A2AA-A9498D10E7F6}</Project>
+      <Name>ClubDomain.Classes</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
