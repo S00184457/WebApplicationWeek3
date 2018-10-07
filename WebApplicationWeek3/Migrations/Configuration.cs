@@ -4,6 +4,7 @@ namespace WebApplicationWeek3.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -73,8 +74,21 @@ namespace WebApplicationWeek3.Migrations
                     ClubName = "Trad Music Club",
                     CreationDate = new DateTime(2008, 08, 08),
                     adminID = 1,
-                }
-                );
+                    clubMembers = new List<Member>(){
+                        new Member
+                        {
+                            MemberID = 1,
+                            StudentID = "S00181111",
+                            approved = true
+                        },
+                        new Member
+                        {
+                            MemberID = 2,
+                            StudentID = "S00182222",
+                            approved = true
+                        }
+                    }
+                });
 
             context.Clubs.AddOrUpdate(c => c.ClubId,
                 new Club
@@ -83,7 +97,18 @@ namespace WebApplicationWeek3.Migrations
                     ClubName = "Badminton Club",
                     CreationDate = new DateTime(2010, 10, 10),
                     adminID = 1,
-                    //clubMembers = new ICollection<Member>
+                    clubMembers = new List<Member>(){
+                        new Member
+                        {
+                            StudentID = "S00181111",
+                            approved = true
+                        },
+                        new Member
+                        {
+                            StudentID = "S00182222",
+                            approved = true
+                        }
+                    }
                 }
                 );
 
@@ -93,59 +118,62 @@ namespace WebApplicationWeek3.Migrations
                     ClubId = 3,
                     ClubName = "International Club",
                     CreationDate = new DateTime(2012, 12, 12),
-                    adminID = 1,
+                    adminID = 2,
+                    clubMembers = new List<Member>(){
+                        new Member
+                        {
+                            StudentID = "S00181111",
+                            approved = true
+                        }
+                    }
                 }
                 );
 
-            context.Members.AddOrUpdate(m => m.MemberID,
-                new Member
-                {
-                    MemberID = 1,
-                    StudentID="S00181111",
-                    approved = true,
-                }
-                );
+            context.SaveChanges();
 
-            context.Members.AddOrUpdate(m => m.MemberID,
-                new Member
-                {
-                    MemberID = 2,
-                    StudentID = "S00182222",
-                    approved = true,
-                }
-                );
-
-            context.ClubEvents.AddOrUpdate(e => e.EventID,
+            foreach (Club club in context.Clubs.ToList()) {
+                context.ClubEvents.AddOrUpdate(e => e.EventID,
                 new ClubEvent
                 {
-                    EventID = 1,
+                    ClubId = club.ClubId,
                     Location = "IT",
+                    Venue = "Galway",
+                    StartDateTime = DateTime.Now,
+                    EndDateTime = DateTime.Now.AddDays(1),
+
                 }
                 );
 
-            context.ClubEvents.AddOrUpdate(e => e.EventID,
+                context.ClubEvents.AddOrUpdate(e => e.EventID,
                 new ClubEvent
                 {
-                    EventID = 2,
-                    Location = "IT",
-                }
-                );
-
-            context.ClubEvents.AddOrUpdate(e => e.EventID,
-                new ClubEvent
-                {
-                    EventID = 3,
+                    ClubId = club.ClubId,
                     Location = "Arena",
+                    Venue = "Sligo",
+                    StartDateTime = DateTime.Now,
+                    EndDateTime = DateTime.Now.AddHours(3),
                 }
                 );
 
-            context.ClubEvents.AddOrUpdate(e => e.EventID,
-                new ClubEvent
+            }
+
+            context.SaveChanges();
+
+            foreach (ClubEvent clubEvent in context.ClubEvents.Include("associatedClub").ToList())
+            {
+                foreach(Member member in clubEvent.associatedClub.clubMembers)
                 {
-                    EventID = 4,
-                    Location = "Arena",
+                    context.EventAttendances.AddOrUpdate(glados => glados.ID,
+                        new EventAttendnace
+                        {
+                            associatedEvent = clubEvent,
+                            memberAttending = member
+                        }
+                        );
                 }
-                );
+            }
+
+            context.SaveChanges();
 
             ApplicationUser admin = manager.FindByEmail("powell.paul@itsligo.ie");
             if (admin != null)
